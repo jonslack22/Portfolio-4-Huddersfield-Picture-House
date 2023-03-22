@@ -1,0 +1,1 @@
+web: gunicorn huddersfield_picture_house.wsgi
