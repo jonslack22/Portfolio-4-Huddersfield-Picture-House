@@ -1,7 +1,5 @@
 {% load static %}
 
-{% load cloudinary %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-yS6+bhABvP8B11i4eXq4U6QzsTcP8bbIg0T3zk7r2r22Zheb0zz27eGp0DN7oEhIgduMzVGrOcOenBHYDOeYww==" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{% block title %}Huddersfield Picture House{% endblock %}</title>
 </head>
@@ -34,17 +32,17 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'account' %}">Your Account</a>
+                <a class="nav-link" href="#">Your Account</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-link" href="#">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link" href="#">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-link" href="#">Register</a>
             </li>
             {% endif %}
             </ul>
@@ -88,8 +86,8 @@
                 </ul>
             </div>
             <div class="col-md-3">
-                <img src="{% cloudinary_static 'https://res.cloudinary.com/dgmdzubus/image/upload/v1680029941/ico-logo-white_etxczs.png' %}" alt="Image">
-                <img src="{% cloudinary_static 'https://res.cloudinary.com/dgmdzubus/image/upload/v1680029941/kirklees_council_ek6mhp.png' %}" alt="Image">
+                <img src="{% static 'images/ico-logo-white.png' %}" alt="Image">
+                <img src="{% static 'images/kirklees_council.png' %}" alt="Image">
             </div>
             <div class="col-md-12">
                 <p>&copy; 2023 Huddersfield Picture House</p>
