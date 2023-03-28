@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load cloudinary %}
+
+{% block content %}
+    <h1>What's On</h1>
+    <div class="movie-list">
+        {% for movie in movie_list %}
+        <div class="movie">
+            <h2>{{ movie.title }}</h2>
+            <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}">
+            <p>{{ movie.description }}</p>
+            <h3>Showtimes:</h3>
+            <ul>
+            {% for showtime in movie.movie_showtimes.all %}
+                <li>{{ showtime.show_date }} at {{ showtime.show_times }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

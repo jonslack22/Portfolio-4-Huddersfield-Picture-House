@@ -1,0 +1,101 @@
+{% load static %}
+
+{% load cloudinary %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-yS6+bhABvP8B11i4eXq4U6QzsTcP8bbIg0T3zk7r2r22Zheb0zz27eGp0DN7oEhIgduMzVGrOcOenBHYDOeYww==" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Huddersfield Picture House{% endblock %}</title>
+</head>
+<body>
+    <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">My Cinema</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">What's On</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account' %}">Your Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
+    <div class="container mt-4">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+  <!-- Footer -->
+    <footer class="bg-light">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5> Our Goal </h5>
+                    <p>To bring together a diverse array of peoples through the celebration of cinema and filmmaking
+                    with both new and old film releases alike.
+                    </p>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li>Upstairs, 80 John William St</li>
+                    <li>Huddersfield</li>
+                    <li>HD1 5AA</li>
+                    <li>01484 567890</li>
+                    <li>info@huddersfieldpciturehouse.co.uk</li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <img src="{% cloudinary_static 'https://res.cloudinary.com/dgmdzubus/image/upload/v1680029941/ico-logo-white_etxczs.png' %}" alt="Image">
+                <img src="{% cloudinary_static 'https://res.cloudinary.com/dgmdzubus/image/upload/v1680029941/kirklees_council_ek6mhp.png' %}" alt="Image">
+            </div>
+            <div class="col-md-12">
+                <p>&copy; 2023 Huddersfield Picture House</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
