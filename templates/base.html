@@ -12,6 +12,16 @@
     <title>{% block title %}Huddersfield Picture House{% endblock %}</title>
 </head>
 <body>
+    <div class="container bg-dark">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <span class="fs-4">Huddersfield Picture House</span>
+            <ul class="social-media-header">
+                <li class="social-media-list-header"><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                <li class="social-media-list-header"><a href="#"><i class="fab fa-twitter-square"></i></a></li>
+                <li class="social-media-list-header"><a href="#"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </header>
+    </div>
     <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -58,7 +68,7 @@
     </div>
 
   <!-- Footer -->
-    <footer class="bg-light">
+    <footer class="bg-dark">
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-4">
@@ -74,20 +84,20 @@
                     <li>Huddersfield</li>
                     <li>HD1 5AA</li>
                     <li>01484 567890</li>
-                    <li>info@huddersfieldpciturehouse.co.uk</li>
-                </ul>
-            </div>
-            <div class="col-md-2">
-                <h5>Follow Us</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    <li class="email-contact">info@huddersfieldpicturehouse.co.uk</li>
                 </ul>
             </div>
             <div class="col-md-3">
-                <img src="{% static 'images/ico-logo-white.png' %}" alt="Image">
-                <img src="{% static 'images/kirklees_council.png' %}" alt="Image">
+                <img class="footer-icons" src="{% static 'images/ico-logo-white.png' %}" alt="Image">
+                <img class="footer-icons" src="{% static 'images/kirklees_council.png' %}" alt="Image">
+            </div>
+            <div class="col-md-2">
+                <h5>Follow Us</h5>
+                <ul class="social-media-list">
+                    <li class="social-media"><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                    <li class="social-media"><a href="#"><i class="fab fa-twitter-square"></i></a></li>
+                    <li class="social-media"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                </ul>
             </div>
             <div class="col-md-12">
                 <p>&copy; 2023 Huddersfield Picture House</p>
