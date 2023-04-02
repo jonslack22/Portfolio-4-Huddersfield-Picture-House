@@ -12,9 +12,9 @@
     <title>{% block title %}Huddersfield Picture House{% endblock %}</title>
 </head>
 <body>
-    <div class="container bg-dark">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <span class="fs-4">Huddersfield Picture House</span>
+    <div class="custom-container container-header bg-dark">
+        <header class="header-with-icons">
+            <span class="cinema-title">Huddersfield Picture House</span>
             <ul class="social-media-header">
                 <li class="social-media-list-header"><a href="#"><i class="fab fa-facebook-square"></i></a></li>
                 <li class="social-media-list-header"><a href="#"><i class="fab fa-twitter-square"></i></a></li>
@@ -61,15 +61,15 @@
 </nav>
 
 <!-- Content -->
-    <div class="container mt-4">
+    <main class="container mt-0">
         {% block content %}
         
         {% endblock %}
-    </div>
+    </main>
 
   <!-- Footer -->
     <footer class="bg-dark">
-        <div class="container py-5">
+        <div class="container p-3">
             <div class="row">
                 <div class="col-md-4">
                     <h5> Our Goal </h5>
@@ -77,7 +77,7 @@
                     with both new and old film releases alike.
                     </p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 flex-grow-0">
                 <h5>Contact Us</h5>
                 <ul class="list-unstyled">
                     <li>Upstairs, 80 John William St</li>
@@ -87,11 +87,11 @@
                     <li class="email-contact">info@huddersfieldpicturehouse.co.uk</li>
                 </ul>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 flex-grow-0">
                 <img class="footer-icons" src="{% static 'images/ico-logo-white.png' %}" alt="Image">
                 <img class="footer-icons" src="{% static 'images/kirklees_council.png' %}" alt="Image">
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 flex-grow-0">
                 <h5>Follow Us</h5>
                 <ul class="social-media-list">
                     <li class="social-media"><a href="#"><i class="fab fa-facebook-square"></i></a></li>

@@ -1,15 +1,68 @@
 body {
+    position: relative;
     max-width: 1080px;
     margin-left: auto;
     margin-right: auto;
+    background-image: url('/static/images/seamless-cinema.jpg');
+    background-repeat: repeat;
+}
+
+main {
+    min-height: 52.85rem;
+    padding: 1rem;
 }
 
 header, footer {
     color:whitesmoke;
 }
 
-footer h5 {
+footer {
     padding-bottom: 0.5em;
+}
+
+.custom-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.container-header {
+    margin-bottom: -1px;
+}
+
+.mt-0 {
+    background-color: white;
+    max-width: 100%;
+}
+
+.p-3 {
+    max-width: 100%;
+}
+  
+.header-with-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dee2e6;
+    padding: 20px 0;
+}
+  
+.cinema-title {
+    font-size: 24px;
+    margin-right: auto;
+}
+  
+.social-media-header {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0;
+    list-style: none;
+}
+  
+.social-media-list-header {
+    margin-right: 10px;
 }
 
 .email-contact {
@@ -27,11 +80,6 @@ footer h5 {
     width: 0.875em;
     height: 1em;
 }
-
-.d-flex.flex-wrap.justify-content-center.py-3.mb-4.border-bottom {
-    display: flex;
-    align-items: center;
-}
   
 .social-media-header {
     display: flex;
@@ -48,7 +96,33 @@ footer h5 {
     padding-left: 0;
 }
 
+@media only screen and (max-width: 992px) {
+    .col-md-3.flex-grow-0, .col-md-2.flex-grow-0 {
+      flex-grow: 0;
+    }
+}
+
 @media only screen and (max-width: 768px) {
+    .header-with-icons {
+        flex-wrap: wrap;
+        padding: 10px 0;
+    }
+    
+    .cinema-title {
+        margin-right: 0;
+        margin-bottom: 10px;
+        flex-basis: 100%;
+    }
+    
+    .social-media-header {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .social-media-list-header {
+        margin-right: 20px;
+    }
+    
     .social-media-list {
         max-width: 100%;
         display: flex;
@@ -63,3 +137,10 @@ footer h5 {
         display: none;
     }
 }
+
+@media only screen and (min-width: 768px) {
+    .col-md-3,
+    .col-md-2 {
+        max-width: none;
+    }
+  }
