@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'allauth',
+    'crispy_forms',
+    'allauth.account',
     'movie_booking',
 ]
 

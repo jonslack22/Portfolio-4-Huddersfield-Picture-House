@@ -1,0 +1,4 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}The account already exists{% endblocktrans %}
+{% endautoescape %}
