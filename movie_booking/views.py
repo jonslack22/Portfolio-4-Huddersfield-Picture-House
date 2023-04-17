@@ -2,7 +2,15 @@ from django.db.models.signals import post_save
 from django.shortcuts import render
 from django.dispatch import receiver
 from django.views import generic
+from django.views.generic import TemplateView
 from .models import Movie, Showtime, Seat
+
+
+class IndexView(TemplateView):
+    """
+    View to the landing page
+    """
+    template_name = 'index.html'
 
 
 class MovieList(generic.ListView):
