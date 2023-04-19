@@ -38,12 +38,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Logout</a>
                 </li>
-                {% endif %}
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                {% endif %}
                 </li>
             </ul>
         </div>

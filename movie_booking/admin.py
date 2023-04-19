@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Showtime, Movie, Seat, Reservation
+from .models import Movie, Showtime, Reservation
 
 
 class ShowtimeInline(admin.TabularInline):
