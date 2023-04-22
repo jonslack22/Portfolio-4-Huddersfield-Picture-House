@@ -11,7 +11,18 @@
             <h3>Showtimes:</h3>
             <ul>
             {% for showtime in movie.movie_showtimes.all %}
-                <li>{{ showtime.show_date }} at {{ showtime.show_times }}</li>
+                <li>{{ showtime.show_date }} at {{ showtime.show_times }}
+                    <form method="post" action="{% url 'booking_detail' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="movie_id" value="{{ movie.id }}">
+                        <input type="hidden" name="showtime_id" value="{{ showtime.id }}">
+                        {% if user.is_authenticated %}
+                            <button type="submit">BOOK NOW</button>
+                        {% else %}
+                            <p>Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> or <a href="{% url 'account_signup' %}?next={{ request.path }}">sign up</a> to book</p>
+                        {% endif %}
+                    </form>
+                </li>
             {% endfor %}
             </ul>
         </div>

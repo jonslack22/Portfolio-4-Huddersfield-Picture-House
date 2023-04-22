@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
-from django.shortcuts import render
-from django.dispatch import receiver
-from django.views import generic
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import generic, View
 from django.views.generic import TemplateView
-from .models import Movie, Showtime, Seat
+from .models import Movie, Showtime, Reservation as Booking
 
 
 class IndexView(TemplateView):
@@ -20,16 +21,54 @@ class MovieList(generic.ListView):
     context_object_name = 'movie_list'
 
 
-@receiver(post_save, sender=Showtime)
-# The @receiver decorator is used to create seats for a newly created Showtime
-# object. The post_save signal is sent every time a Showtime object is saved,
-# and the create_seats function is called as a receiver of that signal.
-def create_seats(sender, instance, created, **kwargs):
-    if created:
-        # The function creates and saves the related Seat objects to the
-        # database.
-        seats = []
-        for row in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']:
-            for number in range(1, 21):
-                seats.append(Seat(row=row, number=number))
-        Seat.objects.bulk_create(seats)
+class BookingDetailView(LoginRequiredMixin, View):
+    """
+    View to render bookingdetail
+    and allow user to create a booking
+    """
+    login_url = '/accounts/login/'
+
+    def get(self, request, pk):
+        showtime = get_object_or_404(Showtime, pk=pk)
+        booked_seats = Reservation.objects.filter(
+            showtime=showtime).values_list(
+            'seat_number', flat=True)
+        context = {
+            'movie': showtime.movie,
+            'showtime': showtime,
+            'booked_seats': booked_seats,
+            'user': request.user,
+        }
+        return render(request, 'booking_detail.html', context)
+
+
+class BookingSuccessView(TemplateView):
+    """
+    A view to show the booking was successfull
+    """
+    template_name = 'booking_success.html'
+
+
+class BookingEditView(TemplateView()):
+    """
+    A view to provide an interface for users to 
+    edit their booking
+    """
+    model = Booking
+    template_name = 'booking_edit'
+    success_url = '/managebooking'
+
+
+class ManageBookingView(ListView):
+    """
+    View to render ManageBookings
+    """
+    model = Booking
+    template_name = 'manage_booking.html'
+
+
+class DeleteSuccessView(TemplateView):
+    """
+    A view to provide the user with a delete sucess page
+    """
+    template_name = 'delete_success.html'

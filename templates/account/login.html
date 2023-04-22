@@ -6,4 +6,28 @@
 
 {% block content %}
 
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mt-5 offset-md-2">
+            <h2 class="text-uppercase font-weight-bold mb-4">{% trans "Sign In" %}</h2>
+    
+            <p class="lead">{% blocktrans %}Huddersfield Picture House is glad to have you! Please sign in to book tickets.{% endblocktrans %}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mt-4 offset-md-2">
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button type="submit" class="btn btn-primary btn-block btn-lg mt-4">{% trans "Sign In" %}</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

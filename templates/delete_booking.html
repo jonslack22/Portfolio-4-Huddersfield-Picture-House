@@ -5,9 +5,8 @@
 
 <!-- To confirm the deletion of a booking -->
 
-
-<form method="post" class="p-3 page-height text-center">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ # }}"?</p> 
+<form method="post" class="p-3 text-center">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p> 
     <a href="javascript:history.go(-1)">Back</a>    
     <input type="submit" value="Confirm" class="btn btn-outline-danger delete-button">
     
