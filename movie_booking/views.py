@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic, View
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView, DeleteView
 from .models import Movie, Showtime, Reservation as Booking
 
 
@@ -49,9 +51,16 @@ class BookingSuccessView(TemplateView):
     template_name = 'booking_success.html'
 
 
-class BookingEditView(TemplateView()):
+class DeleteBookingView(DeleteView):
+    """ A view to delete a booking """
+    model = Booking
+    template_name = 'delete_booking.html'
+    success_url = '/deletesuccess'
+
+
+class BookingEditView(UpdateView):
     """
-    A view to provide an interface for users to 
+    A view to provide an interface for users to
     edit their booking
     """
     model = Booking

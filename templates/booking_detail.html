@@ -22,6 +22,8 @@
     <h2>Showtime Details</h2>
     <p>{{ showtime }}</p>
 
+    <img src="{{ static 'images/cinema_screen_concept.png' }}" alt="Image of the 220 seat Huddersfield Picture House Theatre">
+
     <h2>Book a Seat</h2>
     <form method="POST" action="{% url 'create_booking' %}" class="my-4">
         {% csrf_token %}

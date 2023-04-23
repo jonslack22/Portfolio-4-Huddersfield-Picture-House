@@ -8,7 +8,7 @@ class ShowtimeInline(admin.TabularInline):
     within the 'Movie' model admin page. An extra form can be
     displayed if multiple showings for a movie are desired.
     """
-    model = Showtime
+    model = Movie.showings.through
     extra = 1
 
 
