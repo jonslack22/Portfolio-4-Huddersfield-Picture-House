@@ -1,12 +1,12 @@
-from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ValidationError
 from django.views import generic, View
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, DeleteView
-from .models import Movie, Showtime, Reservation as Booking
+from .models import Movie, ShowTime, Booking
 
 
 class IndexView(TemplateView):
@@ -25,16 +25,13 @@ class MovieList(generic.ListView):
 
 class BookingDetailView(LoginRequiredMixin, View):
     """
-    View to render bookingdetail
-    and allow user to create a booking
+    View to render booking detail and allow user to create a booking
     """
     login_url = '/accounts/login/'
 
     def get(self, request, pk):
-        showtime = get_object_or_404(Showtime, pk=pk)
-        booked_seats = Reservation.objects.filter(
-            showtime=showtime).values_list(
-            'seat_number', flat=True)
+        showtime = get_object_or_404(ShowTime, pk=pk)
+        booked_seats = Booking.objects.filter(show_time=showtime).values_list('seats', flat=True)
         context = {
             'movie': showtime.movie,
             'showtime': showtime,
@@ -43,10 +40,29 @@ class BookingDetailView(LoginRequiredMixin, View):
         }
         return render(request, 'booking_detail.html', context)
 
+    def post(self, request, pk):
+        showtime = get_object_or_404(ShowTime, pk=pk)
+        seats = request.POST.getlist('seats')
+        booking = Booking(user=request.user, show_time=showtime, seats=seats)
+        try:
+            booking.full_clean()
+        except ValidationError as e:
+            context = {
+                'movie': showtime.movie,
+                'showtime': showtime,
+                'booked_seats': Booking.objects.filter(
+                    show_time=showtime).values_list('seats', flat=True),
+                'user': request.user,
+                'errors': e.message_dict,
+            }
+            return render(request, 'booking_detail.html', context)
+        booking.save()
+        return redirect('bookingsuccess', pk=booking.pk)
+
 
 class BookingSuccessView(TemplateView):
     """
-    A view to show the booking was successfull
+    A view to show the booking was successful
     """
     template_name = 'booking_success.html'
 
@@ -64,7 +80,7 @@ class BookingEditView(UpdateView):
     edit their booking
     """
     model = Booking
-    template_name = 'booking_edit'
+    template_name = 'booking_edit.html'
     success_url = '/managebooking'
 
 

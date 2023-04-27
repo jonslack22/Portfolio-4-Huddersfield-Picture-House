@@ -9,13 +9,13 @@
             {% if showForm == True %}
             <div class="card p-5">
                 <h3 class="text-center mb-4">Edit Booking</h3>
-            <form action="{% url 'editbooking' booking.id %}" method="POST">
-                {% if user.is_authenticated %}
-                {{ form.as_p }}
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary btn-block mt-4">Change</button>
-                {% endif %}
-            </form>
+                <form action="{% url 'editbooking' booking.id %}" method="POST">
+                    {% if user.is_authenticated %}
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Edit Booking</button>
+                    {% endif %}
+                </form>
             </div>
             {% else %}
             <div>

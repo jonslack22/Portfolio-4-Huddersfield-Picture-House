@@ -8,11 +8,12 @@
             <h2>{{ movie.title }}</h2>
             <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}">
             <p>{{ movie.description }}</p>
+            <p>{{ movie.duration_minutes }}</p>
             <h3>Showtimes:</h3>
             <ul>
-            {% for showtime in movie.movie_showtimes.all %}
-                <li>{{ showtime.show_date }} at {{ showtime.show_times }}
-                    <form method="post" action="{% url 'booking_detail' %}">
+            {% for showtime in movie.showtime_set.all %}
+                <li>{{ showtime.start_time|date:"F d, Y" }} at {{ showtime.start_time|time:"g:i A" }}
+                    <form method="post" action="{% url 'booking_detail' pk=movie.id %}">
                         {% csrf_token %}
                         <input type="hidden" name="movie_id" value="{{ movie.id }}">
                         <input type="hidden" name="showtime_id" value="{{ showtime.id }}">

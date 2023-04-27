@@ -1,18 +1,12 @@
 from django.contrib import admin
-from .models import Movie, Showtime
+from .models import Movie, ShowTime, Booking
 
 
-class ShowtimeInline(admin.TabularInline):
-    """
-    This class allows the 'Showtime' model to be edited inline
-    within the 'Movie' model admin page. An extra form can be
-    displayed if multiple showings for a movie are desired.
-    """
-    model = Movie.showings.through
-    extra = 1
+class ShowTimeInline(admin.TabularInline):
+    model = ShowTime
 
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    inlines = [ShowtimeInline]
-    prepopulated_fields = {'slug': ('title',)}
+    inlines = [ShowTimeInline]
+    list_display = ('title', 'duration_minutes')

@@ -1,12 +1,12 @@
 from django import forms
-from .models import Reservation
+from .models import Booking
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 
 
-class ReservationForm(forms.ModelForm):
+class BookingForm(forms.ModelForm):
     class Meta:
-        model = Reservation
+        model = Booking
         fields = ('seats',)
 
     def __init__(self, *args, **kwargs):
@@ -19,7 +19,7 @@ class ReservationForm(forms.ModelForm):
         self.helper.field_class = 'col-md-6'
 
     seats = forms.TypedMultipleChoiceField(
-        choices=[(str(i), i) for i in range(1, 101)],
+        choices=[(str(i), i) for i in range(1, 220)],
         widget=forms.CheckboxSelectMultiple,
         coerce=int,
         label='Select Seats'
