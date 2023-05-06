@@ -1,32 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>What's On</h1>
-    <div class="movie-list">
-        {% for movie in movie_list %}
-        <div class="movie">
-            <h2>{{ movie.title }}</h2>
-            <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}">
-            <p>{{ movie.description }}</p>
-            <p>{{ movie.duration_minutes }}</p>
-            <h3>Showtimes:</h3>
-            <ul>
+<h1>What's On</h1>
+<div class="movie-list">
+    {% for movie in movie_list %}
+    <div class="movie">
+        <h2>{{ movie.title }}</h2>
+        <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}">
+        <p>{{ movie.description }}</p>
+        <p>{{ movie.duration_minutes }}</p>
+        <h3>Showtimes:</h3>
+        <ul>
             {% for showtime in movie.showtime_set.all %}
-                <li>{{ showtime.start_time|date:"F d, Y" }} at {{ showtime.start_time|time:"g:i A" }}
-                    <form method="post" action="{% url 'booking_detail' pk=movie.id %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="movie_id" value="{{ movie.id }}">
-                        <input type="hidden" name="showtime_id" value="{{ showtime.id }}">
-                        {% if user.is_authenticated %}
-                            <button type="submit">BOOK NOW</button>
-                        {% else %}
-                            <p>Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> or <a href="{% url 'account_signup' %}?next={{ request.path }}">sign up</a> to book</p>
-                        {% endif %}
-                    </form>
-                </li>
+            <li>{{ showtime.start_time|date:"F d, Y" }} at {{ showtime.start_time|time:"g:i A" }}
+                {% if user.is_authenticated %}
+                <a href="{% url 'booking_detail' pk=movie.id showtime_start_time=showtime.start_time %}">Book Now</a>
+                {% else %}
+                <p>Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> or <a
+                        href="{% url 'account_signup' %}?next={{ request.path }}">sign up</a> to book</p>
+                {% endif %}
+            </li>
             {% endfor %}
-            </ul>
-        </div>
-        {% endfor %}
+        </ul>
     </div>
+    {% endfor %}
+</div>
 {% endblock %}

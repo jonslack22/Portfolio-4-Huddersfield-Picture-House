@@ -11,7 +11,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     duration_minutes = models.IntegerField()
-    featured_image = CloudinaryField('image', default='placeholder')
+    featured_image = CloudinaryField("image", default="placeholder")
 
     def __str__(self):
         return self.title
@@ -21,6 +21,9 @@ class ShowTime(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    seat_arrangement = models.CharField(
+        max_length=1000, default=",".join(str(i) for i in range(1, 221))
+    )
 
     def __str__(self):
         return f"{self.movie} - {self.start_time}"
@@ -28,7 +31,8 @@ class ShowTime(models.Model):
 
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    show_time = models.ForeignKey(ShowTime, on_delete=models.CASCADE)
+    show_time = models.ForeignKey(
+        ShowTime, on_delete=models.CASCADE, related_name="bookings")
     seats = models.IntegerField(validators=[MinValueValidator(1)])
 
     def __str__(self):
