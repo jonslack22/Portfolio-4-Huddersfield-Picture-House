@@ -47,16 +47,16 @@ class BookingDetailView(LoginRequiredMixin, View):
         showtime = get_object_or_404(
             ShowTime, movie=movie, start_time=showtime_start_time)
         available_seats = get_available_seats(showtime)
-        form = BookingForm()
-        print(showtime)
+        form = BookingForm(showtime=showtime)
         return render(
-            request, 'booking_detail.html', 
-            context={'form': form,
-                    'showtime': showtime})
+            request, 'booking_detail.html',
+            context={'form': form, 'showtime': showtime})
 
     def post(self, request, pk, showtime_start_time):
         model = Booking
         form = BookingForm(request.POST)
+        showtime = get_object_or_404(
+            ShowTime, movie=movie, start_time=showtime_start_time)
 
         if form.is_valid():
             seats = form.cleaned_data["seats"]
@@ -76,7 +76,8 @@ class BookingDetailView(LoginRequiredMixin, View):
                 request, 'booking_detail.html',
                 {
                     'form': form,
-                    'errorMessage': errorMessage
+                    'errorMessage': errorMessage,
+                    'showtime': showtime
                 }
             )
 

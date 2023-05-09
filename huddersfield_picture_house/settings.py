@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "huddersfield-picture-house.herokuapp.com",
-    "8000-jonslack22-portfolio-4-h-rbmc0bsph5.us2.codeanyapp.com",
+    "8000-jonslack22-portfolio-4-h-azrznv1h3f.us2.codeanyapp.com",
 ]
 
 
