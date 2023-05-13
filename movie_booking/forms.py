@@ -19,6 +19,8 @@ class BookingForm(forms.ModelForm):
         choices=[(x, x) for x in range(
             166, 221)], label="Seats 166 - 220:", required=False)
 
+    movie_id = forms.IntegerField(widget=forms.HiddenInput())
+
     class Meta:
         model = Booking
         fields = ("user", "show_time", "seat_range_1", "seat_range_2",
@@ -34,6 +36,7 @@ class BookingForm(forms.ModelForm):
 
     def __init__(self, showtime, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.show_time = showtime
 
         self.helper = FormHelper()
         self.helper.form_method = "post"
@@ -66,11 +69,11 @@ class BookingForm(forms.ModelForm):
         # check for conflicts with existing bookings
         for seat in selected_seats:
             if Booking.objects.filter(
-                    show_time=show_time,
+                    show_time=self.show_time,
                     seats__contains=str(seat)).exists():
                 raise forms.ValidationError(
                     f"Seat {seat} has already been booked."
                 )
 
-        cleaned_data['seats'] = seats
+        cleaned_data['seats'] = selected_seats
         return cleaned_data

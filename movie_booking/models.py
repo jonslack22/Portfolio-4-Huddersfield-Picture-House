@@ -11,7 +11,17 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     duration_minutes = models.IntegerField()
+    age_rating = models.CharField(max_length=3, choices=[
+        ('U', 'U'),
+        ('PG', 'PG'),
+        ('12A', '12A'),
+        ('15', '15'),
+        ('18', '18'),
+    ])
     featured_image = CloudinaryField("image", default="placeholder")
+
+    class Meta:
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -31,6 +41,7 @@ class ShowTime(models.Model):
 
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
     show_time = models.ForeignKey(
         ShowTime, on_delete=models.CASCADE, related_name="bookings")
     seats = models.IntegerField(validators=[MinValueValidator(1)])

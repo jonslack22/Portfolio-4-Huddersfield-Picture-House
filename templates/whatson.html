@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block content %}
 <h1>What's On</h1>
 <div class="movie-list">
@@ -8,7 +9,18 @@
         <h2>{{ movie.title }}</h2>
         <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}">
         <p>{{ movie.description }}</p>
-        <p>{{ movie.duration_minutes }}</p>
+        {% if movie.age_rating == 'U' %}
+            <img src="{% static 'images/U.PNG' %}" alt="U Rating">
+        {% elif movie.age_rating == 'PG' %}
+            <img src="{% static 'images/PG.PNG' %}" alt="PG Rating">
+        {% elif movie.age_rating == '12A' %}
+            <img src="{% static 'images/12A.PNG' %}" alt="12A Rating">
+        {% elif movie.age_rating == '15' %}
+            <img src="{% static 'images/15.PNG' %}" alt="15 Rating">
+        {% elif movie.age_rating == '18' %}
+            <img src="{% static 'images/18.PNG' %}" alt="18 Rating">
+        {% endif %}
+        <p>{{ movie.duration_minutes }} minutes</p>
         <h3>Showtimes:</h3>
         <ul>
             {% for showtime in movie.showtime_set.all %}
