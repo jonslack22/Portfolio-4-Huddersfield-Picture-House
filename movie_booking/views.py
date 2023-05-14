@@ -42,33 +42,37 @@ class BookingDetailView(LoginRequiredMixin, View):
     """
     template_name = 'booking_detail.html'
 
-    def get(self, request, pk, showtime_start_time):
-        movie = get_object_or_404(Movie, pk=pk)
-        showtime = get_object_or_404(ShowTime, start_time=showtime_start_time)
+    def get(self, request, movie_id, showtime_start_time):
+        movie = Movie.objects.filter(pk=movie_id).first()
+        showtime = ShowTime.objects.filter(
+            movie=movie, start_time=showtime_start_time).first()
         available_seats = get_available_seats(showtime)
         form = BookingForm(showtime=showtime)
+        self.movie_id = movie_id
+        self.showtime_start_time = showtime_start_time
         return render(
             request, 'booking_detail.html',
             context={'form': form, 'showtime': showtime})
 
-    def post(self, request, pk, showtime_start_time):
+    def post(self, request, movie_id, showtime_start_time):
         model = Booking
-        movie_id = request.POST.get('movie_id')
-        showtime_start_time = request.POST.get('showtime_start_time')
         form = BookingForm(request.POST)
-        Booking_created = False
+        booking_made = False
 
         if form.is_valid():
             seats = form.cleaned_data["seats"]
-            booking = Booking.objects.create(
-                user=request.user, show_time=showtime, seats=seats)
-            booking.seats.set(seats)
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.movie_id = Movie.objects.get(pk=self.movie_id)
+            booking.show_time = ShowTime.objects.get(
+                movie_id=self.movie_id, start_time=self.showtime_start_time)
             booking.save()
-            Booking_created = True
+            booking.seats.set(seats)
+            booking_made = True
             return render(
                     request, 'booking_success.html',
                     {
-                        'Booking_made': Booking_made}
+                        'booking_made': booking_made}
                     )
         else:
             errorMessage = "There was a problem with your booking Please "
