@@ -17,22 +17,17 @@
             </div>
         </div>
     </div>
-    {% else %}
-    <h1>{{ movie.title }}</h1>
-    <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}">
-
-    <p>{{ showtime }}</p>
+{% else %}
+    
+    <!-- <img src="{{ movie.featured_image.url }}" alt="{{ movie.title }}"> -->
 
     <img src="{% static 'images/cinema_screen_concept.png' %}"
         alt="Image of the 220 seat Huddersfield Picture House Theatre">
 
     <h2>Book a Seat</h2>
-    <form method="POST" action="{% url 'booking_detail' pk=showtime.movie.id showtime_start_time=showtime.start_time %}"
-        class="my-4">
+    <form method="POST" action="{% url 'booking_detail' %}" class="my-4">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="hidden" name="movie_id" value="{{ showtime.movie.id }}">
-        <input type="hidden" name="showtime_start_time" value="{{ showtime.start_time }}">
         <button type="submit" class="btn btn-primary mt-3">Book Seats</button>
     </form>
 

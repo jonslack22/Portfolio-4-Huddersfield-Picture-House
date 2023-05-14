@@ -7,11 +7,7 @@ from django.urls import path
 urlpatterns = [
     path("", views.IndexView.as_view(), name="home"),
     path("whatson", views.MovieList.as_view(), name="whatson"),
-    path(
-        "booking/<int:pk>/<str:showtime_start_time>/",
-        BookingDetailView.as_view(),
-        name="booking_detail"
-        ),
+    path("booking", BookingDetailView.as_view(), name="booking_detail"),
     path(
         "managebooking/", views.ManageBookingView.as_view(),
         name="managebooking"
